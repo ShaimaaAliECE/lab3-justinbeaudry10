@@ -1,0 +1,22 @@
+{
+  "name": "doodleapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShaimaaAliECE/lab3-justinbeaudry10.git"
+  },
+  "author": "Justin Beaudry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShaimaaAliECE/lab3-justinbeaudry10/issues"
+  },
+  "homepage": "https://github.com/ShaimaaAliECE/lab3-justinbeaudry10#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
