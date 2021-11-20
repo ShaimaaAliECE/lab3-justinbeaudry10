@@ -56,7 +56,7 @@ app.post("/admin", (req, res) => {
             "<th>Name</th>";
 
           // Time headers
-          for (var i = 0; i < 10; i++) {
+          for (let i = 0; i < 10; i++) {
             markup +=
               '<th><p id="t' +
               i +
@@ -68,7 +68,9 @@ app.post("/admin", (req, res) => {
           }
 
           markup +=
-            "</tr>" + "</form>" + '<form action="/admin/avail" method="post">';
+            "</tr>" +
+            "</form>" +
+            '<form action="/admin/availability" method="post">';
 
           // Adds a row for each user
           for (r of rows) {
@@ -83,7 +85,7 @@ app.post("/admin", (req, res) => {
               '" readonly></td>';
 
             // Adds a checkbox for each column (chekced indicates available)
-            for (var i = 0; i < availableTimes.length; i++) {
+            for (let i = 0; i < availableTimes.length; i++) {
               // Checks what availability is set to
               if (times[`${availableTimes[i]}`]) {
                 markup +=
@@ -133,7 +135,7 @@ app.post("/admin", (req, res) => {
 });
 
 // Change availability post
-app.post("/admin/avail", (req, res) => {
+app.post("/admin/availability", (req, res) => {
   let times = []; // List of times
   let users = []; // Mame and availability for each user
   let updates = []; // Index of availability that is updates in users array
@@ -163,8 +165,8 @@ app.post("/admin/avail", (req, res) => {
         }
 
         // Checks if the users avail times stored in the db match whats currently displayed
-        for (var i = 0; i < users.length; i++) {
-          for (var j = 0; j < 10; j++) {
+        for (let i = 0; i < users.length; i++) {
+          for (let j = 0; j < 10; j++) {
             // If the index isnt in the update array and stored avail times dont match displayed
             if (
               !updates.includes(i) &&
@@ -243,7 +245,7 @@ app.get("/guest", (req, res) => {
           "<th>Name</th>";
 
         // Time headers
-        for (var i = 0; i < 10; i++) {
+        for (let i = 0; i < 10; i++) {
           markup +=
             '<th><p id="t' +
             i +
@@ -257,7 +259,7 @@ app.get("/guest", (req, res) => {
         markup += "</tr></thead><tbody>";
 
         for (r of rows) {
-          let times = JSON.parse(r.TimesAvailable); // Parses the availablity to a json object
+          let times = JSON.parse(r.TimesAvailable); // Parses the times available to json object
 
           markup +=
             '<tr><td style="text-align: center; width:175px"><input type="text" id="' +
@@ -267,7 +269,7 @@ app.get("/guest", (req, res) => {
             '" readonly></td>';
 
           // Adds text displaying each previous guest's availability
-          for (var i = 0; i < availableTimes.length; i++) {
+          for (let i = 0; i < availableTimes.length; i++) {
             // Checks what availability is set to
             if (times[`${availableTimes[i]}`]) {
               markup += '<td style="text-align: center; color: green">Yes</td>';
@@ -285,7 +287,7 @@ app.get("/guest", (req, res) => {
           "</td>";
 
         // Adds a row of check boxes incase the guest would like to enter their availability
-        for (var i = 0; i < 10; i++) {
+        for (let i = 0; i < 10; i++) {
           markup +=
             '<td style="text-align: center"><input type="checkbox" name="box' +
             i +
@@ -305,7 +307,7 @@ app.get("/guest", (req, res) => {
 
 // Guest availability registration
 app.post("/guest/register", (req, res) => {
-  // If the guest name is not included in the database already as it is the pk
+  // If row doesn't already exist in DB
   if (!req.body.otherNames.includes(req.body.guestName)) {
     let conn = newConnection();
     conn.connect();
@@ -313,9 +315,9 @@ app.post("/guest/register", (req, res) => {
     let newAvailability = {}; // New availability entered by the guest
 
     // Adds a true false value for each availability entry time. Converts checkbox values to true false
-    for (var i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
       newAvailability[req.body[`${"t" + i}`]] =
-        req.body[`${"box" + i}`] === "on";
+        req.body[`${"box" + i}`] == "on";
     }
 
     // Adds the new guest to the database
