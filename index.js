@@ -247,13 +247,11 @@ app.get("/guest", (req, res) => {
         // Time headers
         for (let i = 0; i < 10; i++) {
           markup +=
-            '<th><p id="t' +
+            '<th><input type="time" name="t' +
             i +
-            '" name="t' +
-            i +
-            '">' +
+            '" value="' +
             availableTimes[i] +
-            "</p></th>";
+            '" readonly></th>';
         }
 
         markup += "</tr></thead><tbody>";
@@ -317,14 +315,14 @@ app.post("/guest/register", (req, res) => {
     // Adds a true false value for each availability entry time. Converts checkbox values to true false
     for (let i = 0; i < 10; i++) {
       newAvailability[req.body[`${"t" + i}`]] =
-        req.body[`${"box" + i}`] == "on";
+        req.body[`${"box" + i}`] === "on";
     }
 
     // Adds the new guest to the database
     conn.query(
-      `INSERT INTO Availability VALUES("${
-        req.body.guestName
-      }", CURRENT_TIME(),'${JSON.stringify(newAvailability)}')`,
+      `INSERT INTO Availability VALUES("${req.body.guestName}", CURRENT_TIME(),'` +
+        JSON.stringify(newAvailability) +
+        `')`,
       (err, rows, fields) => {
         if (err) {
           console.log(err);

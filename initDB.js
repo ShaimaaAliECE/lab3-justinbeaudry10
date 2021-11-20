@@ -28,7 +28,7 @@ conn.query(
 // Insert row for admin into table, with 10 time slots
 conn.query(
   `
-    INSERT INTO Availability VALUES ("Admin", CURRENT_TIME(), '["8:00", "9:00", "10:00", "11:00", "12:00", "1:00", "2:00", "3:00", "4:00", "5:00"]')
+    INSERT INTO Availability VALUES ("Admin", CURRENT_TIME(), '["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]')
     `,
   (err, rows, fields) => {
     if (err) console.log(err);
@@ -38,7 +38,7 @@ conn.query(
 
 conn.query(
   `
-    INSERT INTO Availability VALUES ("Justin", CURRENT_TIME(), '{"8:00":false, "9:00":true, "10:00":true, "11:00":true, "12:00":true, "1:00":false, "2:00":true, "3:00":true, "4:00":true, "5:00":true}')
+    INSERT INTO Availability VALUES ("Justin", CURRENT_TIME(), '{"08:00":false, "09:00":true, "10:00":true, "11:00":true, "12:00":true, "13:00":false, "14:00":true, "15:00":true, "16:00":true, "17:00":true}')
     `,
   (err, rows, fields) => {
     if (err) console.log(err);
